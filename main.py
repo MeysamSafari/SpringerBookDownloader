@@ -6,7 +6,7 @@ from concurrent.futures import ThreadPoolExecutor
 import requests
 from urllib.parse import urljoin
 from bs4 import BeautifulSoup as bs
-from time import gmtime, strftime
+import datetime
 from pathlib import Path
 
 lock = threading.Lock()
@@ -35,7 +35,7 @@ def main():
     folder_name = Path(input('Enter the folder name to be created to store all pdf files ...'))
     folder_name.mkdir(parents = True, exist_ok = True)
 
-    print('Start time:', strftime("%Y-%m-%d %H:%M:%S", gmtime()))
+    print('Start time:', datetime.datetime.now().strftime("%Y-%m-%d %H:%M:%S"))
 
     url_pattern = re.compile('http://[^\s]+')
     urls = url_pattern.findall(file_name.read_text(encoding = 'UTF8'))
@@ -48,7 +48,7 @@ def main():
                 print(f"Enjoy reading the {result_file.name}. It is downloaded successfully!!!")
                 print("File available at:", str(result_file.absolute()), "\n\n")
 
-    print(strftime("%Y-%m-%d %H:%M:%S", gmtime()))
+    print('End time: ', datetime.datetime.now().strftime("%Y-%m-%d %H:%M:%S"))
 
 
 if __name__ == '__main__':
